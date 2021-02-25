@@ -1,6 +1,6 @@
 package br.com.zup.transactions.config;
 
-import br.com.zup.transactions.model.Transaction;
+import br.com.zup.transactions.consumer.model.TransactionReceiver;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +28,7 @@ public class KafkaConsumerConfig {
     private String kafkaGroupId;
 
     @Bean
-    public ConsumerFactory<String, Transaction> consumerConfig() {
+    public ConsumerFactory<String, TransactionReceiver> consumerConfig() {
         Map<String, Object> config = new HashMap<>();
 
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaServer);
@@ -40,14 +40,14 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Transaction>> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, Transaction> listener = new ConcurrentKafkaListenerContainerFactory<>();
+    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, TransactionReceiver>> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, TransactionReceiver> listener = new ConcurrentKafkaListenerContainerFactory<>();
         listener.setConsumerFactory(consumerConfig());
         return listener;
     }
 
-    public JsonDeserializer<Transaction> getDeserializer() {
-        JsonDeserializer<Transaction> json = new JsonDeserializer<>(Transaction.class, false);
+    public JsonDeserializer<TransactionReceiver> getDeserializer() {
+        JsonDeserializer<TransactionReceiver> json = new JsonDeserializer<>(TransactionReceiver.class, false);
         json.addTrustedPackages("*");
 
         return json;

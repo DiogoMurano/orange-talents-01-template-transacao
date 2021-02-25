@@ -1,46 +1,54 @@
 package br.com.zup.transactions.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.istack.NotNull;
 
-import java.io.Serializable;
+import javax.persistence.Embedded;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Transaction implements Serializable {
+public class Transaction {
 
-    @JsonProperty
-    private UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @JsonProperty("valor")
+    @NotNull
+    private UUID externalId;
+
+    @NotNull
     private BigDecimal value;
 
-    @JsonProperty("estabelecimento")
+    @Embedded
     private Establishment establishment;
 
-    @JsonProperty("cartao")
+    @Embedded
     private Card card;
 
-    @JsonProperty("efetivadaEm")
+    @NotNull
     private LocalDateTime activateAt;
 
-    public Transaction(UUID id, BigDecimal value, Establishment establishment, Card card, LocalDateTime activateAt) {
-        this.id = id;
+    public Transaction(UUID externalId, BigDecimal value, Establishment establishment, Card card, LocalDateTime activateAt) {
+        this.externalId = externalId;
         this.value = value;
         this.establishment = establishment;
         this.card = card;
         this.activateAt = activateAt;
     }
 
+    @Deprecated
     public Transaction() {
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public BigDecimal getValue() {
-        return value;
+    public UUID getExternalId() {
+        return externalId;
     }
 
     public Establishment getEstablishment() {
@@ -53,16 +61,5 @@ public class Transaction implements Serializable {
 
     public LocalDateTime getActivateAt() {
         return activateAt;
-    }
-
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "id=" + id +
-                ", value=" + value +
-                ", establishment=" + establishment.toString() +
-                ", card=" + card.toString() +
-                ", activateAt=" + activateAt +
-                '}';
     }
 }

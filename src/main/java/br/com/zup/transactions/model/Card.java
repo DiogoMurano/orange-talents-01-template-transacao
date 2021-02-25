@@ -1,38 +1,36 @@
 package br.com.zup.transactions.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.istack.NotNull;
 
+import javax.persistence.Embeddable;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
+@Embeddable
 public class Card {
 
-    @JsonProperty
-    private UUID id;
+    @NotNull
+    private UUID cardId;
 
-    @JsonProperty
+    @NotBlank
+    @Email
     private String email;
 
-    public Card(UUID id, String email) {
-        this.id = id;
+    public Card(UUID cardId, String email) {
+        this.cardId = cardId;
         this.email = email;
     }
 
+    @Deprecated
     public Card() {
     }
 
-    public UUID getId() {
-        return id;
+    public UUID getCardId() {
+        return cardId;
     }
 
     public String getEmail() {
         return email;
-    }
-
-    @Override
-    public String toString() {
-        return "Card{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                '}';
     }
 }

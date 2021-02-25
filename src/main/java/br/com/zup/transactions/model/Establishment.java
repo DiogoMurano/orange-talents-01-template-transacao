@@ -1,16 +1,18 @@
 package br.com.zup.transactions.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Embeddable;
+import javax.validation.constraints.NotBlank;
 
+@Embeddable
 public class Establishment {
 
-    @JsonProperty("nome")
+    @NotBlank
     private String name;
 
-    @JsonProperty("cidade")
+    @NotBlank
     private String city;
 
-    @JsonProperty("endereco")
+    @NotBlank
     private String address;
 
     public Establishment(String name, String city, String address) {
@@ -19,6 +21,7 @@ public class Establishment {
         this.address = address;
     }
 
+    @Deprecated
     public Establishment() {
     }
 
@@ -32,14 +35,5 @@ public class Establishment {
 
     public String getAddress() {
         return address;
-    }
-
-    @Override
-    public String toString() {
-        return "Establishment{" +
-                "name='" + name + '\'' +
-                ", city='" + city + '\'' +
-                ", address='" + address + '\'' +
-                '}';
     }
 }
