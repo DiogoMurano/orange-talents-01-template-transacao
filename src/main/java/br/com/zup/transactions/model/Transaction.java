@@ -2,10 +2,7 @@ package br.com.zup.transactions.model;
 
 import com.sun.istack.NotNull;
 
-import javax.persistence.Embedded;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -25,7 +22,7 @@ public class Transaction {
     @Embedded
     private Establishment establishment;
 
-    @Embedded
+    @ManyToOne
     private Card card;
 
     @NotNull
@@ -49,6 +46,10 @@ public class Transaction {
 
     public UUID getExternalId() {
         return externalId;
+    }
+
+    public BigDecimal getValue() {
+        return value;
     }
 
     public Establishment getEstablishment() {

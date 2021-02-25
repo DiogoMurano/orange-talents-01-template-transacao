@@ -1,24 +1,30 @@
 package br.com.zup.transactions.model;
 
-import com.sun.istack.NotNull;
-
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
-@Embeddable
+@Entity
 public class Card {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @NotNull
-    private UUID cardId;
+    private UUID externalId;
 
     @NotBlank
     @Email
     private String email;
 
-    public Card(UUID cardId, String email) {
-        this.cardId = cardId;
+    public Card(@NotNull UUID externalId, @NotBlank @Email String email) {
+        this.externalId = externalId;
         this.email = email;
     }
 
@@ -26,8 +32,12 @@ public class Card {
     public Card() {
     }
 
-    public UUID getCardId() {
-        return cardId;
+    public Long getId() {
+        return id;
+    }
+
+    public UUID getExternalId() {
+        return externalId;
     }
 
     public String getEmail() {
