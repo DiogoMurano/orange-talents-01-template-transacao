@@ -1,4 +1,4 @@
-package br.com.zup.transactions.config;
+package br.com.zup.transactions.config.kafka;
 
 import br.com.zup.transactions.consumer.model.TransactionReceiver;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Configuration
 @EnableKafka
-public class KafkaConsumerConfig {
+public class KafkaConsumerConfiguration {
 
     @Value("${transactions.kafka.boot.server}")
     private String kafkaServer;

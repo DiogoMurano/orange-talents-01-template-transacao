@@ -31,9 +31,9 @@ public class ConsultController {
         this.transactionRepository = transactionRepository;
     }
 
-    @GetMapping("/card/{id}/consult")
-    public ResponseEntity<List<TransactionResponse>> consult(@PathVariable UUID externalId) {
-        Card card = cardRepository.findByExternalId(externalId).orElseThrow(() ->
+    @GetMapping("/card/{id}")
+    public ResponseEntity<List<TransactionResponse>> consult(@PathVariable UUID id) {
+        Card card = cardRepository.findByExternalId(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Card not found."));
 
         List<Transaction> transactions = transactionRepository.findTop10ByCardOrderByActivateAt(card);

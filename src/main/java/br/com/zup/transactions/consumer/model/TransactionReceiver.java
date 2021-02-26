@@ -1,5 +1,6 @@
 package br.com.zup.transactions.consumer.model;
 
+import br.com.zup.transactions.model.Card;
 import br.com.zup.transactions.model.Transaction;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -27,8 +28,12 @@ public class TransactionReceiver {
     public TransactionReceiver() {
     }
 
-    public Transaction toModel() {
-        return new Transaction(id, value, establishment.toModel(), card.toModel(), activateAt);
+    public Transaction toModel(Card card) {
+        return new Transaction(id, value, establishment.toModel(), card, activateAt);
+    }
+
+    public Card getCardModel() {
+        return card.toModel();
     }
 
     public UUID getId() {
